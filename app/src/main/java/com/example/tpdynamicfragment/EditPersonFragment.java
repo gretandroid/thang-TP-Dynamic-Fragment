@@ -7,14 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditPersonFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class EditPersonFragment extends Fragment {
+import com.example.tpdynamicfragment.model.Person;
+import com.example.tpdynamicfragment.model.PersonDao;
 
+public class EditPersonFragment extends Fragment implements Communication {
+
+    EditText nomEditText;
+    EditText prenomEditText;
+    EditText dateEditText;
 
     public EditPersonFragment() {
         // Required empty public constructor
@@ -25,6 +27,18 @@ public class EditPersonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_person, container, false);
+        View root = inflater.inflate(R.layout.fragment_edit_person, container, false);
+        nomEditText = root.findViewById(R.id.nomEditText);
+        prenomEditText = root.findViewById(R.id.prenomEditText);
+        dateEditText = root.findViewById(R.id.dateEditText);
+        return root;
+    }
+
+    @Override
+    public void onSelected(View source, int selectedIndex) {
+        Person editingPerson = PersonDao.getPersons().get(selectedIndex);
+        nomEditText.setText(editingPerson.getNom());
+        prenomEditText.setText(editingPerson.getPrenom());
+        dateEditText.setText(editingPerson.getDateNaissance());
     }
 }

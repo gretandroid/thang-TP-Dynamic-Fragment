@@ -2,6 +2,7 @@ package com.example.tpdynamicfragment;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,10 +17,11 @@ import android.view.ViewGroup;
 
 import com.example.tpdynamicfragment.model.PersonDao;
 
-public class PersonFragment extends Fragment {
+public class PersonFragment extends Fragment implements Communication {
 
     private PersonViewModel mViewModel;
     RecyclerView recyclerView;
+    Communication parentContext;
 
     public static PersonFragment newInstance() {
         return new PersonFragment();
@@ -39,5 +41,18 @@ public class PersonFragment extends Fragment {
         }
 
         return root;
+    }
+
+    @Override
+    public void onSelected(View source, int selectedIndex) {
+        parentContext.onSelected(source, selectedIndex);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof Communication) {
+            parentContext = (Communication) context;
+        }
     }
 }
