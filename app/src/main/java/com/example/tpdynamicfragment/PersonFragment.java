@@ -29,9 +29,15 @@ public class PersonFragment extends Fragment implements Communication {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(PersonViewModel.class);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(PersonViewModel.class);
+
         View root = inflater.inflate(R.layout.person_fragment, container, false);
         recyclerView = root.findViewById(R.id.recyclerView);
 

@@ -69,6 +69,8 @@ public class EditPersonFragment extends Fragment implements Communication {
             editingPerson.setDateNaissance(date);
 
             parentContext.onReceived(source, selectedIndex, nom, prenom, date);
+            // another moyen to back
+//            requireActivity().onBackPressed();
         }
     }
 
