@@ -17,10 +17,11 @@ import java.util.List;
 public class PersonRecyclerViewAdapter extends RecyclerView.Adapter<PersonRecyclerViewAdapter.PersonViewHolder> {
 
     List<Person> personList;
-    Communication parentContext;
+    Communication parentCommunication;
 
-    public PersonRecyclerViewAdapter(List<Person> personList) {
+    public PersonRecyclerViewAdapter(List<Person> personList, Communication communication) {
         this.personList = personList;
+        this.parentCommunication = communication;
     }
 
     @NonNull
@@ -28,7 +29,7 @@ public class PersonRecyclerViewAdapter extends RecyclerView.Adapter<PersonRecycl
     public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         if (context instanceof  Communication) {
-            parentContext = (Communication) context;
+            parentCommunication = (Communication) context;
         }
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View root = layoutInflater.inflate(R.layout.row, parent, false);
@@ -42,7 +43,7 @@ public class PersonRecyclerViewAdapter extends RecyclerView.Adapter<PersonRecycl
         holder.prenomTextView.setText(personList.get(position).getPrenom());
         holder.dateTextView.setText(personList.get(position).getDateNaissance());
         holder.row.setOnClickListener((v) -> {
-            parentContext.onSelected(v, position);
+            parentCommunication.onSend(v, position);
         });
     }
 

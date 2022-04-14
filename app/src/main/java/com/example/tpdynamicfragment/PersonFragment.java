@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tpdynamicfragment.model.Person;
 import com.example.tpdynamicfragment.model.PersonDao;
 
 public class PersonFragment extends Fragment implements Communication {
@@ -36,7 +37,7 @@ public class PersonFragment extends Fragment implements Communication {
 
         if (recyclerView != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            PersonRecyclerViewAdapter adapter = new PersonRecyclerViewAdapter(PersonDao.getPersons());
+            PersonRecyclerViewAdapter adapter = new PersonRecyclerViewAdapter(PersonDao.getPersons(), this);
             recyclerView.setAdapter(adapter);
         }
 
@@ -44,8 +45,13 @@ public class PersonFragment extends Fragment implements Communication {
     }
 
     @Override
-    public void onSelected(View source, int selectedIndex) {
-        parentContext.onSelected(source, selectedIndex);
+    public void onSend(View source, int selectedIndex) {
+        parentContext.onSend(source, selectedIndex);
+    }
+
+    @Override
+    public void onReceived(View source, int selectedIndex, String nom, String prenom, String date) {
+        // nothing
     }
 
     @Override
